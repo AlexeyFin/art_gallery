@@ -102,7 +102,8 @@ class ArtGallery {
         // this.main_item.removeAttribute('style');
         this.main_item.style.position = "relative";
         this.main_item.style.maxWidth = this.initia_params.width + "px";
-        this.main_item.style.height = "auto";
+        this.main_item.style.maxHeight = this.initia_params.height + "px";
+        this.main_item.style.height = this.initia_params.height + "px";
         this.main_item.style.top = "0px";
         this.main_item.style.left = "0px";
         this.mainView.dataset.status='original';
