@@ -1,0 +1,79 @@
+main
+  display: flex
+  min-height: 100vh
+  width: 100%
+  justify-content: center
+  align-items: center
+  //background-color: #BDBDBD
+
+  .wrap
+    width: 900px
+    display: flex
+    justify-content: center
+
+
+.art-gallery
+  max-width: 540px
+  .hidden
+    display: none
+  &_main
+    margin-bottom: 48px
+    &_view
+      position: relative
+      min-height: 384px
+      .view_item,.main_item
+        transition: all .3s ease-in-out
+        img
+          max-width: 100%
+          max-height: 100%
+      .show_original_wrap
+        position: absolute
+        width: 100%
+        top: 0
+        display: flex
+        justify-content: center
+        .show_original
+          padding: 0.5rem 1rem
+          border-radius: 0 0 12px 12px
+          background-color: rgba(0,0,0,.65)
+          text-decoration: none
+          text-align: center
+          color: white
+          letter-spacing: 1.08px
+          opacity: 0
+          transition: all .3s ease-in-out
+          cursor: default
+      &[data-status="room"]:hover
+        .show_original_wrap
+          .show_original
+            opacity: 1
+            cursor: pointer
+
+
+  &_sub
+    .nav-list
+      margin: 0 -15px
+      display: flex
+      list-style-type: none
+      padding: 0
+
+      &-item
+        padding: 0 15px
+        height: 75px
+        width: 25%
+        .nav-list-link
+          height: 100%
+          display: block
+          width: 100%
+          img
+            width: 100%
+        .zoom_item
+          border: 2px solid black
+          display: flex
+          flex-direction: column
+          align-items: center
+          padding: 12px
+          color: black
+          text-decoration: black
+          img
+            max-width: 36px
