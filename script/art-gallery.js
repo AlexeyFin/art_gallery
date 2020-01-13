@@ -20,8 +20,7 @@ class ArtGallery {
             if (e.target.closest('a').classList.contains('swap_item')){
                 let event_target = e.target.closest('a').dataset['target'];
                 this.changeBG(event_target);
-                let bg_coord = this.getBGCoordinates(event_target);
-                this.scaleMain(bg_coord);
+                this.scaleMain(event_target);
 
             }
 
@@ -49,20 +48,22 @@ class ArtGallery {
 
     }
 
-    scaleMain(coordinates) {
+    scaleMain(target) {
         let params = this.getMainParams();
+        let current_view = this.mainView.querySelector(`.view_item[data-id="${target}"]`)
+        console.log(current_view);
 
-        this.main_item.style.position = 'absolute';
-        this.main_item.style.top = coordinates.coordinates.top + 'px';
-        this.main_item.style.left = coordinates.coordinates.left + 'px';
-        if(params.width > params.height) {
-            this.main_item.style.maxWidth = coordinates.max_width + 'px';
-        } else if (params.width < params.height) {
-            this.main_item.style.maxHeight = coordinates.max_height + 'px';
-            this.main_item.style.height = '100%';
-            this.main_item.style.maxWidth = 'none';
-
-        }
+        // this.main_item.style.position = 'absolute';
+        // this.main_item.style.top = coordinates.coordinates.top + 'px';
+        // this.main_item.style.left = coordinates.coordinates.left + 'px';
+        // if(params.width > params.height) {
+        //     this.main_item.style.maxWidth = coordinates.max_width + 'px';
+        // } else if (params.width < params.height) {
+        //     this.main_item.style.maxHeight = coordinates.max_height + 'px';
+        //     this.main_item.style.height = '100%';
+        //     this.main_item.style.maxWidth = 'none';
+        //
+        // }
 
     }
 
