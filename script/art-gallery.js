@@ -50,8 +50,21 @@ class ArtGallery {
 
     scaleMain(target) {
         let params = this.getMainParams();
-        let current_view = this.mainView.querySelector(`.view_item[data-id="${target}"]`)
-        console.log(current_view);
+        let bg_params = this.getBGParams(target);
+        console.log(params)
+
+        let current_view = this.mainView.querySelector(`.view_item[data-id="${target}"]`);
+        let img_width =  Number(bg_params.width) * Number(params.natural_width) / Number(current_view.dataset.width);
+        let img_height =  Number(bg_params.width) * Number(params.natural_height) / Number(current_view.dataset.width);
+
+        let center = this.getCenter(target);
+        let center_x_px = (Number(center[0]) * bg_params.width).toFixed();
+        let center_y_px = (Number(center[1]) * bg_params.height).toFixed();
+        this.main_item.style.position = 'absolute';
+        this.main_item.style.top = (center_y_px - (img_height / 2)) + 'px';
+        this.main_item.style.left = (center_x_px - (img_width / 2)) + 'px';
+        this.main_item.style.width = img_width + 'px';
+        this.main_item.style.height = img_height + 'px';
 
         // this.main_item.style.position = 'absolute';
         // this.main_item.style.top = coordinates.coordinates.top + 'px';
@@ -70,10 +83,12 @@ class ArtGallery {
     getMainParams() {
         let width = this.main_item.offsetWidth;
         let height = this.main_item.offsetHeight;
+        let natural_width = Number(this.main_item.dataset.w);
+        let natural_height = Number(this.main_item.dataset.h);
 
         // console.log(`Width: ${width}; Height: ${height}`)
 
-        return {width,height}
+        return {width,height, natural_width, natural_height}
     }
 
     getBGCoordinates(target) {
@@ -97,6 +112,9 @@ class ArtGallery {
         return real_coordinates
     }
 
+
+
+
     showOriginal() {
         console.log(this.initia_params)
 
@@ -105,6 +123,7 @@ class ArtGallery {
         this.main_item.style.maxWidth = this.initia_params.width + "px";
         this.main_item.style.maxHeight = this.initia_params.height + "px";
         this.main_item.style.height = this.initia_params.height + "px";
+        this.main_item.style.width = this.initia_params.width + "px";
         this.main_item.style.top = "0px";
         this.main_item.style.left = "0px";
         this.mainView.dataset.status='original';
@@ -115,6 +134,38 @@ class ArtGallery {
         this.viewItems.forEach(item => {
             item.classList.add('hidden')
         });
+    }
+
+
+    getBGParams(target) {
+        let current_view = this.mainView.querySelector(`.view_item[data-id="${target}"]`);
+        let width = current_view.offsetWidth;
+        let height = current_view.offsetHeight;
+
+
+        return {width, height}
+    }
+
+    getCenter(target) {
+        let current_view = this.mainView.querySelector(`.view_item[data-id="${target}"]`);
+
+        let point;
+
+        if (!current_view.dataset.center) {
+            let t = +current_view.dataset.t,
+                b = +current_view.dataset.b,
+                l = +current_view.dataset.l,
+                r = +current_view.dataset.r;
+
+            let x = (((r - l)/ 2 + l)).toFixed(3);
+            let y = (((b - t)/ 2 + t)).toFixed(3);
+
+            point=[x,y]
+
+        } else {
+            point = current_view.dataset.center.split(',');
+        }
+        return [+point[0], +point[1]]
     }
 
 }
